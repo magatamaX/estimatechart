@@ -10,8 +10,7 @@ const ROOT_PATH_NAME = 'public';
 ** JS Setting
 ***************************************/
 const JS_ENTRY = {
-    'school/js/course': ['@babel/polyfill', './src/js/course.js'],
-    'school/search/js/search': ['@babel/polyfill', './src/js/search.js'],
+    'js/estimatechart': ['@babel/polyfill', './src/js/index.jsx'],
 }
 const JS_SOURCE_MAP_STYLE = 'inline-source-map'; // 'inline-source-map', 'source-map', etc.
 
@@ -50,7 +49,7 @@ module.exports = [
         module: {
             rules: [
                 {
-                    test: /\.js$/,
+                    test: /\.(js|jsx)$/,
                     use: [
                         {
                             loader: 'babel-loader',
@@ -64,7 +63,7 @@ module.exports = [
             ]
         },
         resolve: {
-            extensions: ['.js'],
+            extensions: [".js", ".jsx"],
         },
         devtool: (isDev ? JS_SOURCE_MAP_STYLE : ''),
         performance: { hints: false },
