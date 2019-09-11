@@ -7,8 +7,8 @@
     "start": "webpack-dev-server --mode development --hot --inline",
     "build": "webpack --mode production",
     "build:dev": "webpack --mode development",
-    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
-    "lint": "eslint src/"
+    "format": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
+    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\""
   },
   "license": "ISC",
   "devDependencies": {
@@ -21,6 +21,7 @@
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.1",
     "eslint-config-prettier": "^6.3.0",
+    "eslint-loader": "^3.0.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.0",
@@ -33,6 +34,7 @@
   },
   "dependencies": {
     "axios": "^0.19.0",
+    "prop-types": "^15.7.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "recharts": "^1.7.1",
