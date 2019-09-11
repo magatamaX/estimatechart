@@ -5,30 +5,43 @@ import {
 } from 'recharts';
 import budgetRange from './constants/budget_range';
 
+// 関数計算
+const getScoreByRatio = (x) => {
+// a(x)=5 (1-ℯ^((-x)/(20)))ln(x)- abs((1-ℯ^(-x))^(5)ln(x))
+  const left = (5 * (1 - Math.pow(Math.E, ((-x) / (20)))) * Math.log(x));
+  const right = Math.abs((Math.pow(1 - Math.pow(Math.E, -x), 5) * Math.log(x)));
+  return left - right;
+};
+console.log(getScoreByRatio(10));
+
+// グラフデータプロット
 const data = [
   {
-    name: 'Page A', value: 0, uv: 4000, pv: 2400, amt: 2400,
-  },
-  {
-    name: 'Page B', value: 10, uv: 3000, pv: 1398, amt: 2210,
-  },
-  {
-    name: 'Page C', value: 20, uv: -1000, pv: 9800, amt: 2290,
-  },
-  {
-    name: 'Page D', value: 30, uv: 500, pv: 3908, amt: 2000,
-  },
-  {
-    name: 'Page E', value: 40, uv: -2000, pv: 4800, amt: 2181,
-  },
-  {
-    name: 'Page F', value: 50, uv: -250, pv: 3800, amt: 2500,
-  },
-  {
-    name: 'Page G', value: 60, uv: 3490, pv: 4300, amt: 2100,
-  },
+    ratio: null, value: 0, uv: 4000, pv: 2400, amt: null,
+  }, {
+    ratio: 10, value: 0, uv: 4000, pv: 2400, amt: getScoreByRatio(10),
+  }, {
+    ratio: 20, value: 0, uv: 4000, pv: 2400, amt: getScoreByRatio(20),
+  }, {
+    ratio: 30, value: 0, uv: 4000, pv: 2400, amt: getScoreByRatio(30),
+  }, {
+    ratio: 40, value: 0, uv: 4000, pv: 2400, amt: getScoreByRatio(40),
+  }, {
+    ratio: 50, value: 0, uv: 4000, pv: 2400, amt: getScoreByRatio(50),
+  }, {
+    ratio: 60, value: 0, uv: 4000, pv: 2400, amt: getScoreByRatio(60),
+  }, {
+    ratio: 70, value: 0, uv: 4000, pv: 2400, amt: getScoreByRatio(70),
+  }, {
+    ratio: 80, value: 0, uv: 4000, pv: 2400, amt: getScoreByRatio(80),
+  }, {
+    ratio: 90, value: 0, uv: 4000, pv: 2400, amt: getScoreByRatio(90),
+  }, {
+    ratio: 100, value: 0, uv: 4000, pv: 2400, amt: getScoreByRatio(100),
+  }
 ];
 
+// グラデーションオフセット計算
 const gradientOffset = () => {
   const dataMax = Math.max(...data.map(i => i.uv));
   const dataMin = Math.min(...data.map(i => i.uv));
@@ -47,8 +60,8 @@ const gradientOffset = () => {
 
 const off = gradientOffset();
 
-const App = ({ categoryId, privateId, workId }) => {
-  console.log(categoryId, privateId, workId);
+const App = ({ categoryId, isPrivate, workId }) => {
+  console.log(categoryId, isPrivate, workId);
 
   const [value, setValue] = useState(1);
   console.log(budgetRange.get(value));
@@ -64,24 +77,26 @@ const App = ({ categoryId, privateId, workId }) => {
         {`${budgetRange.get(value).from}円〜${budgetRange.get(value).to}円`}
       </span>
       <AreaChart
-        width={500}
-        height={400}
+        width={800}
+        height={200}
         data={data}
         margin={{
-          top: 10, right: 30, left: 0, bottom: 0,
+          top: 30, right: 30, left: 30, bottom: 30,
         }}
       >
         <Tooltip />
-        <XAxis dataKey="value" />
-        <YAxis dataKey="amt" />
+        <XAxis domain={['dataMin', 'dataMax']} type="number" dataKey="ratio" />
+
         <defs>
           <linearGradient id="splitColor" x1="0" y1="0" x2="1" y2="0">
-            <stop offset={0.3} stopColor="blue" stopOpacity={1} />
+            <stop offset={0.1} stopColor="transparent" stopOpacity={1} />
+            <stop offset={0.1} stopColor="red" stopOpacity={1} />
+            <stop offset={0.3} stopColor="red" stopOpacity={1} />
             <stop offset={0.3} stopColor="transparent" stopOpacity={1} />
+            <stop offset={0.4} stopColor="transparent" stopOpacity={1} />
+            <stop offset={0.4} stopColor="blue" stopOpacity={1} />
+            <stop offset={0.6} stopColor="blue" stopOpacity={1} />
             <stop offset={0.6} stopColor="transparent" stopOpacity={1} />
-            <stop offset={0.6} stopColor="red" stopOpacity={1} />
-            <stop offset={0.8} stopColor="red" stopOpacity={1} />
-            <stop offset={0.8} stopColor="transparent" stopOpacity={1} />
           </linearGradient>
         </defs>
         <Area type="monotone" dataKey="amt" stroke="#000" fill="url(#splitColor)" />
@@ -92,7 +107,7 @@ const App = ({ categoryId, privateId, workId }) => {
 
 App.propTypes = {
   categoryId: PropTypes.string.isRequired,
-  privateId: PropTypes.string.isRequired,
+  isPrivate: PropTypes.string.isRequired,
   workId: PropTypes.string.isRequired
 };
 

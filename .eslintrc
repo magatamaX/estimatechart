@@ -16,6 +16,7 @@
     "no-console": 0,
     "no-tabs": 0,
     "default-case": 0,
+    "no-restricted-properties": 0,
     "jsx-a11y/media-has-caption": 0,
     "jsx-a11y/alt-text": 0,
     "import/no-extraneous-dependencies": 0,

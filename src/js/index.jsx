@@ -5,7 +5,7 @@ import App from './estimatechart/App';
 const targetDom = document.querySelector('.js-estimate-chart');
 const props = {
   categoryId: targetDom.dataset.categoryId,
-  privateId: targetDom.dataset.private,
+  isPrivate: targetDom.dataset.isPrivate === '1',
   workId: targetDom.dataset.workId
 };
 
