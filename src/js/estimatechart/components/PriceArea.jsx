@@ -42,7 +42,7 @@ const Box = styled.div`
     }
 `;
 
-const PriceArea = () => (
+const PriceArea = ({ min, max }) => (
   <Box>
     <dl className="estimate">
       <dt>成約率の高い推定単価</dt>
@@ -57,10 +57,10 @@ const PriceArea = () => (
     <dl className="selected">
       <dt>設定予算</dt>
       <dd>
-        <span className="price">50,000</span>
+        <span className="price">{min}</span>
         <span className="unit">円</span>
         〜
-        <span className="price">100,000</span>
+        <span className="price">{max}</span>
         <span className="unit">円</span>
       </dd>
     </dl>
@@ -68,7 +68,8 @@ const PriceArea = () => (
 );
 
 PriceArea.propTypes = {
-
+  min: PropTypes.number.isRequired,
+  max: PropTypes.number.isRequired
 };
 
 export default PriceArea;

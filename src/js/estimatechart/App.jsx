@@ -49,7 +49,7 @@ const App = ({ categoryId, isPrivate, workId }) => {
     <Body>
       <Title />
       <Main>
-        <PriceArea />
+        <PriceArea min={budgetRange.get(value).min} max={budgetRange.get(value).max} />
         <GraphArea data={data} />
         { showMessage && (
         <Message />
