@@ -2,8 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './estimatechart/App';
 
-document.getElementById('WorkBudgetFixed').addEventListener('change', (e) => {
-  console.log('change', e.target.value);
-});
+const targetDom = document.querySelector('.js-estimate-chart');
+const props = {
+  categoryId: targetDom.dataset.categoryId,
+  privateId: targetDom.dataset.private,
+  workId: targetDom.dataset.workId
+};
 
-ReactDOM.render(<App />, document.querySelector('.js-estimate-chart'));
+ReactDOM.render(<App {...props} />, targetDom);
