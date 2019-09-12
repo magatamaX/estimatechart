@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import budgetRange from './constants/budget_range';
+import budgetRangeMap from './constants/budget_range';
 import { createPlotData, isBetween, getChartRange } from './utils';
 import Body from './components/Body';
 import Main from './components/Main';
@@ -13,9 +13,7 @@ import Note from './components/Note';
 // グラフデータプロット
 const data = createPlotData();
 const range = getChartRange();
-
-const is54000Between = isBetween(54000, 50000, 100000);
-console.log('is54000Between', is54000Between);
+console.log('range', range);
 
 // グラデーションオフセット計算
 const gradientOffset = () => {
@@ -42,7 +40,7 @@ const App = ({ categoryId, isPrivate, workId }) => {
   const [value, setValue] = useState(1);
   const [showMessage, setShowMessage] = useState(true);
 
-  console.log(budgetRange.get(value));
+  console.log(budgetRangeMap.get(value));
 
   document.getElementById('WorkBudgetFixed').addEventListener('change', (e) => {
     console.log('Innner Component => change', e.target.value);
@@ -53,7 +51,7 @@ const App = ({ categoryId, isPrivate, workId }) => {
     <Body>
       <Title />
       <Main>
-        <PriceArea min={budgetRange.get(value).min} max={budgetRange.get(value).max} />
+        <PriceArea min={budgetRangeMap.get(value).min} max={budgetRangeMap.get(value).max} />
         <GraphArea data={data} />
         { showMessage && (
         <Message />
@@ -66,7 +64,7 @@ const App = ({ categoryId, isPrivate, workId }) => {
 
 App.propTypes = {
   categoryId: PropTypes.string.isRequired,
-  isPrivate: PropTypes.string.isRequired,
+  isPrivate: PropTypes.bool.isRequired,
   workId: PropTypes.string.isRequired
 };
 
