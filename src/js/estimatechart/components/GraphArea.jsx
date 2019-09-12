@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  AreaChart, Area, XAxis
+  AreaChart, Area, XAxis, ReferenceLine
 } from 'recharts';
 import CustomizedAxisTick from './CustomizedAxisTick';
 
@@ -40,6 +40,18 @@ const GraphArea = ({
         <stop offset={0.55} stopColor="transparent" stopOpacity={1} />
       </linearGradient>
     </defs>
+    <g transform={`translate(${470 * 0.5},${150 * 0.1})`}>
+      <text
+        x={0}
+        y={0}
+        dx={0}
+        dy={0}
+        textAnchor="middle"
+        fill="blue"
+      >
+        推定単価
+      </text>
+    </g>
     <Area type="monotone" dataKey="amt" stroke="#000" fill="url(#budget)" />
     <Area type="monotone" dataKey="amt" stroke="#000" fill="url(#estimate)" />
   </AreaChart>
