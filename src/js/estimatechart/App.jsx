@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import budgetRangeMap from './constants/budget_range';
-import { createPlotData, getChartRange } from './utils';
+import { createPlotData } from './utils';
 import Body from './components/Body';
 import Main from './components/Main';
 import Title from './components/Title';
@@ -14,29 +14,24 @@ import Note from './components/Note';
 const dummyEstimateMin = 45000;
 const dummyEstimateMax = 54000;
 
-// グラフデータプロット
-// const plotData = createPlotData();
-
-
 const App = ({ categoryId, isPrivate, workId }) => {
   const [value, setValue] = useState(1);
   const [estimateMin, setEstimateMin] = useState(0);
   const [estimateMax, setEstimateMax] = useState(0);
-  const [showMessage, setShowMessage] = useState(true);
 
   const budgetMin = budgetRangeMap.get(value).min;
   const budgetMax = budgetRangeMap.get(value).max;
-  const { chartMin, chartMax, chartRange } = getChartRange(estimateMin, estimateMax);
-  const plotData = createPlotData(chartMin, chartMax, chartRange);
+  const plotData = createPlotData();
+  const isLess = (estimateMin > budgetMax);
+
+  console.log('isLess', isLess);
 
   console.log(`
     budgetMin: ${budgetMin}
     budgetMax: ${budgetMax}
     estimateMin: ${estimateMin}
     estimateMax: ${estimateMax}
-    chartMin: ${chartMin},
-    chartMax: ${chartMax},
-    chartRange: ${chartRange}
+    isLess: ${isLess}
     `);
 
   document.getElementById('WorkBudgetFixed').addEventListener('change', (e) => {
@@ -68,9 +63,9 @@ const App = ({ categoryId, isPrivate, workId }) => {
           budgetMax={budgetMax}
           estimateMin={estimateMin}
           estimateMax={estimateMax}
-          chartRange={chartRange}
+          isLess={isLess}
         />
-        { showMessage && (
+        { isLess && (
         <Message />
         )}
       </Main>

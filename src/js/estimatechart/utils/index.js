@@ -8,27 +8,22 @@ export const getScoreByRatio = (x) => {
   return left - right;
 };
 
-const getChartValue = (min, range, a) => min + (range / 10 * a);
 
-export const createPlotData = (chartMin, chartMax, chartRange) => {
-  console.log(chartMin, chartMax, chartRange);
-  console.log(getScoreByRatio(5));
-  return [
-    {
-      ratio: 0, value: 'data1', amt: 15,
-    }, {
-      ratio: 20, value: 'data2', amt: 20
-    }, {
-      ratio: 40, value: 'data3', amt: 40
-    }, {
-      ratio: 60, value: 'data4', amt: 80
-    }, {
-      ratio: 80, value: 'data5', amt: 97
-    }, {
-      ratio: 100, value: 'data6', amt: 100
-    }
-  ];
-};
+export const createPlotData = () => [
+  {
+    ratio: 0, value: 'data1', amt: 15,
+  }, {
+    ratio: 0.2, value: 'data2', amt: 20
+  }, {
+    ratio: 0.4, value: 'data3', amt: 40
+  }, {
+    ratio: 0.6, value: 'data4', amt: 80
+  }, {
+    ratio: 0.8, value: 'data5', amt: 97
+  }, {
+    ratio: 1, value: 'data6', amt: 100
+  }
+];
 
 export const isBetween = (num, a, b) => {
   const min = Math.min(a, b);
@@ -43,13 +38,11 @@ export const getChartRange = (min = 45000, max = 54000) => {
     if (isBetween(max, cur.min, cur.max)) {
       acc.chartMin = src[idx - 1] ? src[idx - 1].min : 500;
       acc.chartMax = src[idx + 1] ? src[idx + 1].max : 10000000;
-      acc.chartRange = acc.chartMax - acc.chartMin;
     }
     return acc;
   }, {
     chartMin: 500,
     chartMax: 10000000,
-    chartRange: 10000000 - 500
   });
   return obj;
 };

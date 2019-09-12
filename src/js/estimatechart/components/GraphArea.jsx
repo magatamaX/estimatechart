@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Curve
+  AreaChart, Area, XAxis
 } from 'recharts';
 import CustomizedAxisTick from './CustomizedAxisTick';
 
 const GraphArea = ({
-  data, budgetMin, budgetMax, estimateMin, estimateMax, chartRange
+  data, budgetMin, budgetMax, estimateMin, estimateMax, isLess
 }) => (
   <AreaChart
     width={470}
@@ -18,7 +18,7 @@ const GraphArea = ({
   >
 
     <XAxis
-      tick={<CustomizedAxisTick />}
+      tick={<CustomizedAxisTick min={estimateMin} max={estimateMax} />}
       domain={['dataMin', 'dataMax']}
       type="number"
       dataKey="ratio"
@@ -27,10 +27,10 @@ const GraphArea = ({
     <defs>
       {/* 設定単価 */}
       <linearGradient id="budget" x1="0" y1="0" x2="1" y2="0">
-        <stop offset={budgetMin / chartRange} stopColor="transparent" stopOpacity={1} />
-        <stop offset={budgetMin / chartRange} stopColor="red" stopOpacity={0.5} />
-        <stop offset={budgetMax / chartRange} stopColor="red" stopOpacity={1} />
-        <stop offset={budgetMax / chartRange} stopColor="transparent" stopOpacity={1} />
+        <stop offset={budgetMin / (estimateMin + estimateMax)} stopColor="transparent" stopOpacity={1} />
+        <stop offset={budgetMin / (estimateMin + estimateMax)} stopColor={isLess ? 'red' : 'orange'} stopOpacity={0.5} />
+        <stop offset={budgetMax / (estimateMin + estimateMax)} stopColor={isLess ? 'red' : 'orange'} stopOpacity={1} />
+        <stop offset={budgetMax / (estimateMin + estimateMax)} stopColor="transparent" stopOpacity={1} />
       </linearGradient>
       {/* 推定単価 */}
       <linearGradient id="estimate" x1="0" y1="0" x2="1" y2="0">
@@ -51,7 +51,7 @@ GraphArea.propTypes = {
   budgetMax: PropTypes.number.isRequired,
   estimateMin: PropTypes.number.isRequired,
   estimateMax: PropTypes.number.isRequired,
-  chartRange: PropTypes.number.isRequired
+  isLess: PropTypes.bool.isRequired
 };
 
 export default GraphArea;
