@@ -42,25 +42,27 @@ const Box = styled.div`
     }
 `;
 
-const PriceArea = ({ min, max }) => (
+const PriceArea = ({
+  budgetMin, budgetMax, estimateMin, estimateMax
+}) => (
   <Box>
     <dl className="estimate">
       <dt>成約率の高い推定単価</dt>
       <dd>
-        <span className="price">45,000</span>
+        <span className="price">{estimateMin.toLocaleString()}</span>
         <span className="unit">円</span>
             〜
-        <span className="price">54,000</span>
+        <span className="price">{estimateMax.toLocaleString()}</span>
         <span className="unit">円</span>
       </dd>
     </dl>
     <dl className="selected">
       <dt>設定予算</dt>
       <dd>
-        <span className="price">{min.toLocaleString()}</span>
+        <span className="price">{budgetMin.toLocaleString()}</span>
         <span className="unit">円</span>
         〜
-        <span className="price">{max.toLocaleString()}</span>
+        <span className="price">{budgetMax.toLocaleString()}</span>
         <span className="unit">円</span>
       </dd>
     </dl>
@@ -68,8 +70,10 @@ const PriceArea = ({ min, max }) => (
 );
 
 PriceArea.propTypes = {
-  min: PropTypes.number.isRequired,
-  max: PropTypes.number.isRequired
+  budgetMin: PropTypes.number.isRequired,
+  budgetMax: PropTypes.number.isRequired,
+  estimateMin: PropTypes.number.isRequired,
+  estimateMax: PropTypes.number.isRequired
 };
 
 export default PriceArea;

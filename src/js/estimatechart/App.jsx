@@ -52,7 +52,12 @@ const App = ({ categoryId, isPrivate, workId }) => {
     <Body>
       <Title />
       <Main>
-        <PriceArea min={budgetRangeMap.get(value).min} max={budgetRangeMap.get(value).max} />
+        <PriceArea
+          budgetMin={budgetRangeMap.get(value).min}
+          budgetMax={budgetRangeMap.get(value).max}
+          estimateMin={estimateMin}
+          estimateMax={estimateMax}
+        />
         <GraphArea
           data={plotData}
           budgetMin={budgetRangeMap.get(value).min}
