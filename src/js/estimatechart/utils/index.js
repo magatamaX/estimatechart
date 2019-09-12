@@ -46,12 +46,14 @@ export const getChartRange = (min = 45000, max = 54000) => {
   const obj = [...budgetRangeMap.values()].reduce((acc, cur, idx, src) => {
     if (isBetween(max, cur.min, cur.max)) {
       acc.min = src[idx - 1] ? src[idx - 1].min : 500;
-      acc.max = src[idx + 1] ? src[idx + 1].max : Infinity;
+      acc.max = src[idx + 1] ? src[idx + 1].max : 10000000;
+      acc.amount = acc.max - acc.min;
     }
     return acc;
   }, {
     min: 500,
-    max: Infinity,
+    max: 10000000,
+    amount: 10000000 - 500
   });
   return obj;
 };
