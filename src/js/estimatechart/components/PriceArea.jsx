@@ -57,10 +57,10 @@ const PriceArea = ({ min, max }) => (
     <dl className="selected">
       <dt>設定予算</dt>
       <dd>
-        <span className="price">{min}</span>
+        <span className="price">{min.toLocaleString()}</span>
         <span className="unit">円</span>
         〜
-        <span className="price">{max}</span>
+        <span className="price">{max.toLocaleString()}</span>
         <span className="unit">円</span>
       </dd>
     </dl>

@@ -11,14 +11,14 @@ import Message from './components/Message';
 import Note from './components/Note';
 
 // グラフデータプロット
-const data = createPlotData();
+const plotData = createPlotData();
 const range = getChartRange();
 console.log('range', range);
 
 // グラデーションオフセット計算
 const gradientOffset = () => {
-  const dataMax = Math.max(...data.map(i => i.uv));
-  const dataMin = Math.min(...data.map(i => i.uv));
+  const dataMax = Math.max(...plotData.map(i => i.uv));
+  const dataMin = Math.min(...plotData.map(i => i.uv));
   //   const dataMax = 30;
   //   const dataMin = 20;
 
@@ -52,7 +52,7 @@ const App = ({ categoryId, isPrivate, workId }) => {
       <Title />
       <Main>
         <PriceArea min={budgetRangeMap.get(value).min} max={budgetRangeMap.get(value).max} />
-        <GraphArea data={data} />
+        <GraphArea data={plotData} />
         { showMessage && (
         <Message />
         )}
