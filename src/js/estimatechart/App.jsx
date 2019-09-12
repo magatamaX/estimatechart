@@ -15,7 +15,7 @@ const dummyEstimateMin = 45000;
 const dummyEstimateMax = 54000;
 
 // グラフデータプロット
-const plotData = createPlotData();
+// const plotData = createPlotData();
 
 
 const App = ({ categoryId, isPrivate, workId }) => {
@@ -26,12 +26,16 @@ const App = ({ categoryId, isPrivate, workId }) => {
 
   const budgetMin = budgetRangeMap.get(value).min;
   const budgetMax = budgetRangeMap.get(value).max;
-  const chartRange = getChartRange(estimateMin, estimateMax).amount;
+  const { chartMin, chartMax, chartRange } = getChartRange(estimateMin, estimateMax);
+  const plotData = createPlotData(chartMin, chartMax, chartRange);
+
   console.log(`
     budgetMin: ${budgetMin}
     budgetMax: ${budgetMax}
     estimateMin: ${estimateMin}
     estimateMax: ${estimateMax}
+    chartMin: ${chartMin},
+    chartMax: ${chartMax},
     chartRange: ${chartRange}
     `);
 
@@ -53,15 +57,15 @@ const App = ({ categoryId, isPrivate, workId }) => {
       <Title />
       <Main>
         <PriceArea
-          budgetMin={budgetRangeMap.get(value).min}
-          budgetMax={budgetRangeMap.get(value).max}
+          budgetMin={budgetMin}
+          budgetMax={budgetMax}
           estimateMin={estimateMin}
           estimateMax={estimateMax}
         />
         <GraphArea
           data={plotData}
-          budgetMin={budgetRangeMap.get(value).min}
-          budgetMax={budgetRangeMap.get(value).max}
+          budgetMin={budgetMin}
+          budgetMax={budgetMax}
           estimateMin={estimateMin}
           estimateMax={estimateMax}
           chartRange={chartRange}
