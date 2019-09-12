@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import budgetRange from './constants/budget_range';
-import { createPlotData } from './utils';
+import { createPlotData, getChartRange } from './utils';
 import Body from './components/Body';
 import Main from './components/Main';
 import Title from './components/Title';
@@ -12,6 +12,7 @@ import Note from './components/Note';
 
 // グラフデータプロット
 const data = createPlotData();
+const range = getChartRange();
 
 // グラデーションオフセット計算
 const gradientOffset = () => {

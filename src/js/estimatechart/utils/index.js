@@ -31,3 +31,7 @@ export const createPlotData = () => [
     ratio: 100, value: 0, uv: 4000, pv: 2400, amt: getScoreByRatio(100),
   }
 ];
+
+export const getChartRange = (min = 45000, max = 54000) => {
+  console.log(min, max);
+};

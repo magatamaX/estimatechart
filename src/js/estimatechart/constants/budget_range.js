@@ -14,13 +14,6 @@ export default new Map([
     },
   ],
   [
-    2,
-    {
-      min: 5000,
-      max: 10000,
-    },
-  ],
-  [
     3,
     {
       min: 10000,
