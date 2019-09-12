@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import budgetRange from './constants/budget_range';
-import { createPlotData, getChartRange } from './utils';
+import { createPlotData, isBetween, getChartRange } from './utils';
 import Body from './components/Body';
 import Main from './components/Main';
 import Title from './components/Title';
@@ -13,6 +13,9 @@ import Note from './components/Note';
 // グラフデータプロット
 const data = createPlotData();
 const range = getChartRange();
+
+const is54000Between = isBetween(54000, 50000, 100000);
+console.log('is54000Between', is54000Between);
 
 // グラデーションオフセット計算
 const gradientOffset = () => {

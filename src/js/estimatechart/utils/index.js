@@ -1,3 +1,5 @@
+import budgetRange from '../constants/budget_range';
+
 // 関数計算
 export const getScoreByRatio = (x) => {
 // a(x)=5 (1-ℯ^((-x)/(20)))ln(x)- abs((1-ℯ^(-x))^(5)ln(x))
@@ -32,6 +34,21 @@ export const createPlotData = () => [
   }
 ];
 
-export const getChartRange = (min = 45000, max = 54000) => {
-  console.log(min, max);
+export const isBetween = (num, a, b) => {
+  const min = Math.min(a, b);
+  const max = Math.max(a, b);
+
+  return num >= min && num < max;
+};
+
+export const getChartRange = (min = 45000, max = 3000) => {
+  // 推定単価(estimate_to)が属する単価幅が属する価格帯の上下一つの金額帯
+  budgetRange.forEach((price, key, range) => {
+    console.log(price, key, range);
+    if (isBetween(max, price.min, price.max)) {
+      const chartMin = range.get(key - 1) ? range.get(key - 1).min : 500;
+      const chartMax = range.get(key + 1).max;
+      console.log(`hey! ${chartMin} => ${chartMax}`);
+    }
+  });
 };

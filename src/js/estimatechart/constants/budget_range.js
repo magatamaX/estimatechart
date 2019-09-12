@@ -2,7 +2,7 @@ export default new Map([
   [
     1,
     {
-      min: 0,
+      min: 500,
       max: 5000,
     },
   ],
@@ -80,7 +80,7 @@ export default new Map([
     12,
     {
       min: 5000000,
-      max: 10000000000,
+      max: Infinity,
     },
   ],
 ]);
