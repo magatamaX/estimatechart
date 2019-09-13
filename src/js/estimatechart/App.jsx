@@ -6,6 +6,7 @@ import Body from './components/Body';
 import Main from './components/Main';
 import Title from './components/Title';
 import PriceArea from './components/PriceArea';
+import PriceBox from './components/PriceBox';
 import GraphArea from './components/GraphArea';
 import Message from './components/Message';
 import Note from './components/Note';
@@ -68,12 +69,20 @@ const App = ({
     <Body>
       <Title />
       <Main>
-        <PriceArea
-          budgetMin={budgetMin}
-          budgetMax={budgetMax}
-          estimateMin={estimateMin}
-          estimateMax={estimateMax}
-        />
+        <PriceArea>
+          <PriceBox
+            min={estimateMin}
+            max={estimateMax}
+            title="成約率の高い推定単価"
+            isEstimate
+          />
+          <PriceBox
+            min={budgetMin}
+            max={budgetMax}
+            title="設定予算"
+            isEstimate={false}
+          />
+        </PriceArea>
         <GraphArea
           data={plotData}
           budgetMin={budgetMin}
