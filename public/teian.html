@@ -2910,7 +2910,7 @@ $(function(){
                         </span>
                     </td>
                                                                     <td class="p-milestone-form__col p-milestone-form__col--fee is-reward">
-                            <input name="data[Milestone][10][reward_exclude_tax]" class="milestone10 ime_disabled wid12" size="30" type="text" id="Milestone10RewardExcludeTax"/>円
+                            <input name="data[Milestone][10][reward_exclude_tax]" class="milestone10 ime_disabled wid12 js-estimate-chart-input" size="30" type="text" id="Milestone10RewardExcludeTax"/>円
                            <!-- サーバーサイドは amountという名前でランサー手取り(税抜)で受け取る実装をしているため -->
                             <input name="data[Milestone][10][amount]" style="display: none" class="milestone10 ime_disabled wid12" type="text" id="Milestone10Amount" required="required"/>                        </td>
                                                         </tr>
@@ -3096,6 +3096,16 @@ $(function(){
     <script type="text/javascript" src="https://static.lancers.jp/js/price_calculations.js?v=ffd6bd8ae6f0b1b842313d8a43ee0742e2538f03_production"></script>                            </td>
                         </tr>
                                                 </table>
+
+                <!-- target dom -->
+                <div
+                    class="js-estimate-chart"
+                    data-type="lancer"
+                    data-category-id="1"
+                    data-is-private="0"
+                    data-work-id="567980"
+                ></div>
+                <!-- /target dom -->
         </div>
 
                 <div class="js-work-proposal-option--form">        <h3 class="c-heading heading--lv3">追加オプションを提案する</h3>
@@ -3822,6 +3832,7 @@ $(function(){
 <style>
 #topcontrol {
   display: none !important;
+}
 </style>
 
 <!-- /[ AD-AREA ] -->
@@ -3875,5 +3886,12 @@ $(function(){
     </noscript>
     
     <script type="text/javascript" src="https://static.lancers.jp/renewal/js/common/scrolltopcontrol.js?v=ffd6bd8ae6f0b1b842313d8a43ee0742e2538f03_production"></script>
-        <script type="text/javascript" src="https://static.lancers.jp/renewal/js/dest/lancers.js?v=ffd6bd8ae6f0b1b842313d8a43ee0742e2538f03_production" defer="defer"></script></body>
+    <script type="text/javascript" src="https://static.lancers.jp/renewal/js/dest/lancers.js?v=ffd6bd8ae6f0b1b842313d8a43ee0742e2538f03_production" defer="defer"></script>
+
+
+
+    <!-- additional js -->
+    <script src="/js/estimatechart.js"></script>
+    <!-- /additional js -->
+</body>
 </html>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import budgetRangeMap from './constants/budget_range';
-import { createPlotData } from './utils';
+import { createPlotData, getChartRange } from './utils';
 import Body from './components/Body';
 import Main from './components/Main';
 import Title from './components/Title';
@@ -10,11 +10,17 @@ import GraphArea from './components/GraphArea';
 import Message from './components/Message';
 import Note from './components/Note';
 
+
+const selectDom = document.querySelector('.js-estimate-chart-select');
+const inputDom = document.querySelector('.js-estimate-chart-input');
+
 // ダミー推定金額
 const dummyEstimateMin = 45000;
 const dummyEstimateMax = 54000;
 
-const App = ({ categoryId, isPrivate, workId }) => {
+const App = ({
+  isClient, categoryId, isPrivate, workId
+}) => {
   const [value, setValue] = useState(1);
   const [estimateMin, setEstimateMin] = useState(0);
   const [estimateMax, setEstimateMax] = useState(0);
@@ -25,6 +31,7 @@ const App = ({ categoryId, isPrivate, workId }) => {
   const isLess = (estimateMin > budgetMax);
 
   console.log('isLess', isLess);
+  console.log('isClient', isClient);
 
   console.log(`
     budgetMin: ${budgetMin}
@@ -34,12 +41,24 @@ const App = ({ categoryId, isPrivate, workId }) => {
     isLess: ${isLess}
     `);
 
-  document.getElementById('WorkBudgetFixed').addEventListener('change', (e) => {
-    console.log('Innner Component => change', e.target.value);
-    setValue(Number(e.target.value));
-  }, {
-    once: true
-  });
+  if (selectDom) {
+    selectDom.addEventListener('change', (e) => {
+      console.log('(select) Innner Component => change', e.target.value);
+      setValue(Number(e.target.value));
+    }, {
+      once: true
+    });
+  }
+
+  if (inputDom) {
+    inputDom.addEventListener('keyup', (e) => {
+      console.log('(input) Innner Component => change', e.target.value);
+
+      setValue(getChartRange(Number(e.target.value)));
+    }, {
+    //   once: true
+    });
+  }
 
   useEffect(() => {
     console.log(`valueが変わりました。apiを呼びます。${value}`);
@@ -75,6 +94,7 @@ const App = ({ categoryId, isPrivate, workId }) => {
 };
 
 App.propTypes = {
+  isClient: PropTypes.bool.isRequired,
   categoryId: PropTypes.string.isRequired,
   isPrivate: PropTypes.bool.isRequired,
   workId: PropTypes.string.isRequired

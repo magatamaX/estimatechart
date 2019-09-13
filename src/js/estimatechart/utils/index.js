@@ -32,17 +32,16 @@ export const isBetween = (num, a, b) => {
   return num >= min && num < max;
 };
 
-export const getChartRange = (min = 45000, max = 54000) => {
-  // 推定単価(estimate_to)が属する単価幅が属する価格帯の上下一つの金額帯
-  const obj = [...budgetRangeMap.values()].reduce((acc, cur, idx, src) => {
-    if (isBetween(max, cur.min, cur.max)) {
-      acc.chartMin = src[idx - 1] ? src[idx - 1].min : 500;
-      acc.chartMax = src[idx + 1] ? src[idx + 1].max : 10000000;
+export const getChartRange = (price) => {
+  // 推定単価(estimate_to)が属する単価幅が属する金額帯
+  const rangeIndex = [...budgetRangeMap.entries()].reduce((acc, cur, idx, src) => {
+    const [key, value] = cur;
+    if (isBetween(price, value.min, value.max)) {
+      console.log(`入力した金額はインデックス${key}に存在します。`);
+      return key;
     }
+    console.log(`入力した金額はインデックス${key}には存在しません。`);
     return acc;
-  }, {
-    chartMin: 500,
-    chartMax: 10000000,
-  });
-  return obj;
+  }, 1);
+  return rangeIndex;
 };

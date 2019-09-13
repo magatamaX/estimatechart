@@ -81,7 +81,7 @@ window.jQuery || document.write(
 <div class="form-complement__text">少し多めの予算を設定することで、実績あるランサーさんからの注目度が高まります。</div>
 </div>
 <div class="work-form-field comfort">
-<select name="data[Work][budget_fixed]" id="WorkBudgetFixed">
+<select name="data[Work][budget_fixed]" id="WorkBudgetFixed" class="js-estimate-chart-select">
 <option value="1">5千円未満</option>
 <option value="2">5千円 〜 1万円</option>
 <option value="3">1万円 ～ 2万円</option>
@@ -99,7 +99,13 @@ window.jQuery || document.write(
 </div>
 </div>
 <!-- target dom -->
-<div class="js-estimate-chart" data-category-id="aaa" data-is-private="0" data-work-id="ccc"></div>
+<div
+    class="js-estimate-chart"
+    data-type="client"
+    data-category-id="4"
+    data-is-private="0"
+    data-work-id="123456"
+></div>
 <!-- /target dom -->
 </dd>
 </dl>
