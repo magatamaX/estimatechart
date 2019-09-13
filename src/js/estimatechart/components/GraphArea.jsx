@@ -7,7 +7,14 @@ import {
 import CustomizedAxisTick from './CustomizedAxisTick';
 
 const strokeColor = '#808080';
+const highlightColor = '#FF9101';
 const pathClassName = `path.recharts-curve.recharts-area-curve[stroke="${strokeColor}"]`;
+const xAxisHeight = 30;
+const chartWidth = 470;
+const chartHeight = 150;
+const chartMargin = {
+  top: 0, right: 0, left: 0, bottom: 0,
+};
 
 const GraphArea = ({
   data,
@@ -26,31 +33,25 @@ const GraphArea = ({
 
 
   useEffect(() => {
-    console.log('component Did Mount');
-    console.log(chartRef.current);
-
     // 沿わせるパスの図形
     const targetPathElement = chartRef.current.querySelector(pathClassName);
-    console.log(targetPathElement);
-    // 沿わせるパスエリアの長さが
+
+    // 沿わせるパスエリアの長さ
     const totalLength = targetPathElement.getTotalLength();
-    const ratio = totalLength * (inputValue / (estimateMin + estimateMax)) || 0;
-    console.log('ratio', ratio);
-    const position = targetPathElement.getPointAtLength(ratio);
-    console.log(position);
+    const length = totalLength * (inputValue / (estimateMin + estimateMax)) || 0;
+
+    // Circleの位置算出
+    const position = targetPathElement.getPointAtLength(length);
     setCirclePosition({ x: position.x, y: position.y });
   }, [inputValue]);
-  // (min + max) * payload.value
-  // inpurValue / (estimateMin + estimateMax)
+
   return (
     <div ref={chartRef}>
       <AreaChart
-        width={470}
-        height={150}
+        width={chartWidth}
+        height={chartHeight}
         data={data}
-        margin={{
-          top: 0, right: 0, left: 0, bottom: 0,
-        }}
+        margin={chartMargin}
       >
 
         <XAxis
@@ -90,7 +91,27 @@ const GraphArea = ({
         <Area id="axis0" type="monotone" dataKey="amt" stroke={strokeColor} fill="url(#budget)" />
         <Area id="axis1" type="monotone" dataKey="amt" stroke="transparent" fill="url(#estimate)" />
         { circlePosition.x !== 0 && (
-          <circle cx={0} cy={0} r={5} transform={`translate(${circlePosition.x},${circlePosition.y})`} />
+          <line
+            x1={circlePosition.x}
+            x2={circlePosition.x}
+            y1={chartHeight - xAxisHeight}
+            y2={circlePosition.y}
+            stroke={highlightColor}
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeDasharray="1, 5"
+          />
+        )}
+        { circlePosition.x !== 0 && (
+          <circle
+            cx={0}
+            cy={0}
+            r={10}
+            stroke="#fff"
+            strokeWidth="2"
+            fill={highlightColor}
+            transform={`translate(${circlePosition.x},${circlePosition.y})`}
+          />
         )}
 
       </AreaChart>

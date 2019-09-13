@@ -56,7 +56,6 @@ const App = ({
   useEffect(() => {
     if (selectDom) {
       selectDom.addEventListener('change', (e) => {
-        console.log('(select) Innner Component => change', e.target.value);
         setSelectValue(Number(e.target.value));
       }, false);
     }
@@ -66,12 +65,6 @@ const App = ({
 
       // inputタグはオリジナルのものであり、change()で強制発火しているためonchangeを使用
       inputDom.onchange = (e) => {
-        console.log('rapgjerihgaj!!!!!', e.target.value);
-
-        console.log('js-estimate-chart-inputが変わりました！');
-        console.log('(input) Innner Component => change', e.target.value);
-        console.log(`スパンの値はどうなっているか？${document.querySelector('.amount_exclude_tax').innerHTML}`);
-
         setInputValue(Number(e.target.value));
       };
     }
