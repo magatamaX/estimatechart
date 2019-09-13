@@ -12,29 +12,30 @@ const Box = styled.div`
     border-bottom: 1px solid #ddd;
     margin-bottom: 20px;
 
-    .estimate,
-    .selected {
+    .priceArea__estimate,
+    .priceArea__selected {
         dt {
-            font-size: 14px;
+            font-size: 12px;
             font-weight: bold;
         }
         dd {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
             span {
-                &.unit {
-                    font-size: 14px;
+                &.priceArea__estimate__unit,
+                &.priceArea__selected__unit {
+                    font-size: 10px;
                     font-weight: normal;
                 }
             }
         }
     }
-    .estimate {
+    .priceArea__estimate {
         dd {
             color: blue;
         }
     }
-    .selected {
+    .priceArea__selected {
         margin-left: 30px;
         dd {
             color: gray;
@@ -46,24 +47,24 @@ const PriceArea = ({
   budgetMin, budgetMax, estimateMin, estimateMax
 }) => (
   <Box>
-    <dl className="estimate">
+    <dl className="priceArea__estimate">
       <dt>成約率の高い推定単価</dt>
       <dd>
-        <span className="price">{estimateMin.toLocaleString()}</span>
-        <span className="unit">円</span>
+        <span className="priceArea__estimate__price">{estimateMin.toLocaleString()}</span>
+        <span className="priceArea__estimate__unit">円</span>
             〜
-        <span className="price">{estimateMax.toLocaleString()}</span>
-        <span className="unit">円</span>
+        <span className="priceArea__estimate__price">{estimateMax.toLocaleString()}</span>
+        <span className="priceArea__estimate__unit">円</span>
       </dd>
     </dl>
-    <dl className="selected">
+    <dl className="priceArea__selected">
       <dt>設定予算</dt>
       <dd>
-        <span className="price">{budgetMin.toLocaleString()}</span>
-        <span className="unit">円</span>
+        <span className="priceArea__selected__price">{budgetMin.toLocaleString()}</span>
+        <span className="priceArea__selected__unit">円</span>
         〜
-        <span className="price">{budgetMax.toLocaleString()}</span>
-        <span className="unit">円</span>
+        <span className="priceArea__selected__price">{budgetMax.toLocaleString()}</span>
+        <span className="priceArea__selected__unit">円</span>
       </dd>
     </dl>
   </Box>

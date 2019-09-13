@@ -27,7 +27,7 @@ const App = ({
 
   const budgetMin = budgetRangeMap.get(value).min;
   const budgetMax = budgetRangeMap.get(value).max;
-  const plotData = createPlotData();
+  const plotData = createPlotData(isClient);
   const isLess = (estimateMin > budgetMax);
 
   console.log('isLess', isLess);

@@ -4,6 +4,9 @@ import styled from 'styled-components';
 
 const Wrap = styled.div`
     margin-top: 40px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
 `;
 
 const Body = ({ children }) => (

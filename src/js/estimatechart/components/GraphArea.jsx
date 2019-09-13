@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  AreaChart, Area, XAxis, ReferenceLine
+  AreaChart, Area, XAxis, ReferenceLine, Tooltip
 } from 'recharts';
 import CustomizedAxisTick from './CustomizedAxisTick';
 
@@ -23,6 +23,7 @@ const GraphArea = ({
       type="number"
       dataKey="ratio"
     />
+    <Tooltip />
 
     <defs>
       {/* 設定単価 */}

@@ -9,7 +9,7 @@ export const getScoreByRatio = (x) => {
 };
 
 
-export const createPlotData = () => [
+export const createPlotData = isClient => (isClient ? ([
   {
     ratio: 0, value: 'data1', amt: 15,
   }, {
@@ -23,7 +23,23 @@ export const createPlotData = () => [
   }, {
     ratio: 1, value: 'data6', amt: 100
   }
-];
+]) : ([
+  {
+    ratio: 0, value: 'data1', amt: 80,
+  }, {
+    ratio: 0.15, value: 'data2', amt: 70
+  }, {
+    ratio: 0.5, value: 'data4', amt: 100
+  }, {
+    ratio: 0.85, value: 'data5', amt: 45
+  },
+  {
+    ratio: 0.925, value: 'data5', amt: 37.5
+  }, {
+    ratio: 1, value: 'data6', amt: 35
+  }
+]));
+
 
 export const isBetween = (num, a, b) => {
   const min = Math.min(a, b);
