@@ -41,24 +41,22 @@ const App = ({
     isLess: ${isLess}
     `);
 
-  if (selectDom) {
-    selectDom.addEventListener('change', (e) => {
-      console.log('(select) Innner Component => change', e.target.value);
-      setValue(Number(e.target.value));
-    }, {
-      once: true
-    });
-  }
+  useEffect(() => {
+    if (selectDom) {
+      selectDom.addEventListener('change', (e) => {
+        console.log('(select) Innner Component => change', e.target.value);
+        setValue(Number(e.target.value));
+      }, false);
+    }
 
-  if (inputDom) {
-    inputDom.addEventListener('keyup', (e) => {
-      console.log('(input) Innner Component => change', e.target.value);
+    if (inputDom) {
+      inputDom.addEventListener('keyup', (e) => {
+        console.log('(input) Innner Component => change', e.target.value);
 
-      setValue(getChartRange(Number(e.target.value)));
-    }, {
-    //   once: true
-    });
-  }
+        setValue(getChartRange(Number(e.target.value)));
+      }, false);
+    }
+  }, []);
 
   useEffect(() => {
     console.log(`valueが変わりました。apiを呼びます。${value}`);
