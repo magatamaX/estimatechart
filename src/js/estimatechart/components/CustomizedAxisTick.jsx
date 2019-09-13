@@ -20,9 +20,9 @@ const CustomizedAxisTick = ({
 );
 
 CustomizedAxisTick.propTypes = {
-  x: PropTypes.any.isRequired,
-  y: PropTypes.any.isRequired,
-  payload: PropTypes.any.isRequired,
+  x: PropTypes.any,
+  y: PropTypes.any,
+  payload: PropTypes.any,
   min: PropTypes.number.isRequired,
   max: PropTypes.number.isRequired,
 };

@@ -22,17 +22,19 @@ const dummyEstimateMax = 54000;
 const App = ({
   isClient, categoryId, isPrivate, workId
 }) => {
+  console.log(`
+    isClient: ${isClient}
+    カテゴリID: ${categoryId}
+    isPrivate: ${isPrivate}
+    仕事ID: ${workId}`);
+
   const [value, setValue] = useState(1);
   const [estimateMin, setEstimateMin] = useState(0);
   const [estimateMax, setEstimateMax] = useState(0);
 
   const budgetMin = budgetRangeMap.get(value).min;
   const budgetMax = budgetRangeMap.get(value).max;
-  const plotData = createPlotData(isClient);
   const isLess = (estimateMin > budgetMax);
-
-  console.log('isLess', isLess);
-  console.log('isClient', isClient);
 
   console.log(`
     budgetMin: ${budgetMin}
@@ -79,12 +81,13 @@ const App = ({
           <PriceBox
             min={budgetMin}
             max={budgetMax}
-            title="設定予算"
+            title={isClient ? '設定予算' : '依頼予算'}
             isEstimate={false}
           />
         </PriceArea>
         <GraphArea
-          data={plotData}
+          isClient={isClient}
+          data={createPlotData(isClient)}
           budgetMin={budgetMin}
           budgetMax={budgetMax}
           estimateMin={estimateMin}
@@ -102,9 +105,9 @@ const App = ({
 
 App.propTypes = {
   isClient: PropTypes.bool.isRequired,
-  categoryId: PropTypes.string.isRequired,
+  categoryId: PropTypes.number.isRequired,
   isPrivate: PropTypes.bool.isRequired,
-  workId: PropTypes.string.isRequired
+  workId: PropTypes.number.isRequired
 };
 
 export default App;

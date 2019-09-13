@@ -6,7 +6,13 @@ import {
 import CustomizedAxisTick from './CustomizedAxisTick';
 
 const GraphArea = ({
-  data, budgetMin, budgetMax, estimateMin, estimateMax, isLess
+  data,
+  budgetMin,
+  budgetMax,
+  estimateMin,
+  estimateMax,
+  isLess,
+  isClient
 }) => (
   <AreaChart
     width={470}
@@ -27,12 +33,15 @@ const GraphArea = ({
 
     <defs>
       {/* 設定単価 */}
-      <linearGradient id="budget" x1="0" y1="0" x2="1" y2="0">
-        <stop offset={budgetMin / (estimateMin + estimateMax)} stopColor="transparent" stopOpacity={1} />
-        <stop offset={budgetMin / (estimateMin + estimateMax)} stopColor={isLess ? 'red' : 'orange'} stopOpacity={0.5} />
-        <stop offset={budgetMax / (estimateMin + estimateMax)} stopColor={isLess ? 'red' : 'orange'} stopOpacity={1} />
-        <stop offset={budgetMax / (estimateMin + estimateMax)} stopColor="transparent" stopOpacity={1} />
-      </linearGradient>
+      {isClient && (
+        <linearGradient id="budget" x1="0" y1="0" x2="1" y2="0">
+          <stop offset={budgetMin / (estimateMin + estimateMax)} stopColor="transparent" stopOpacity={1} />
+          <stop offset={budgetMin / (estimateMin + estimateMax)} stopColor={isLess ? 'red' : 'orange'} stopOpacity={0.5} />
+          <stop offset={budgetMax / (estimateMin + estimateMax)} stopColor={isLess ? 'red' : 'orange'} stopOpacity={1} />
+          <stop offset={budgetMax / (estimateMin + estimateMax)} stopColor="transparent" stopOpacity={1} />
+        </linearGradient>
+      )}
+
       {/* 推定単価 */}
       <linearGradient id="estimate" x1="0" y1="0" x2="1" y2="0">
         <stop offset={0.45} stopColor="transparent" stopOpacity={1} />
@@ -53,8 +62,8 @@ const GraphArea = ({
         推定単価
       </text>
     </g>
-    <Area type="monotone" dataKey="amt" stroke="#000" fill="url(#budget)" />
-    <Area type="monotone" dataKey="amt" stroke="#000" fill="url(#estimate)" />
+    <Area type="monotone" dataKey="amt" stroke="#808080" fill="url(#budget)" />
+    <Area type="monotone" dataKey="amt" stroke="transparent" fill="url(#estimate)" />
   </AreaChart>
 );
 
@@ -64,7 +73,8 @@ GraphArea.propTypes = {
   budgetMax: PropTypes.number.isRequired,
   estimateMin: PropTypes.number.isRequired,
   estimateMax: PropTypes.number.isRequired,
-  isLess: PropTypes.bool.isRequired
+  isLess: PropTypes.bool.isRequired,
+  isClient: PropTypes.bool.isRequired
 };
 
 export default GraphArea;
