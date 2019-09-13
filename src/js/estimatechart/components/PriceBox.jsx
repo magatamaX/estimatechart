@@ -24,24 +24,17 @@ const Box = styled.dl`
 `;
 
 const PriceBox = ({
-  min, max, title, isEstimate
+  title, html, isEstimate
 }) => (
   <Box isEstimate={isEstimate}>
     <dt>{title}</dt>
-    <dd>
-      <span className="estimatechart__pricebox__price">{min.toLocaleString()}</span>
-      <span className="estimatechart__pricebox__unit">円</span>
-                〜
-      <span className="estimatechart__pricebox__price">{max.toLocaleString()}</span>
-      <span className="estimatechart__pricebox__unit">円</span>
-    </dd>
+    <dd dangerouslySetInnerHTML={{ __html: html }} />
   </Box>
 );
 
 PriceBox.propTypes = {
-  min: PropTypes.number.isRequired,
-  max: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
+  html: PropTypes.string.isRequired,
   isEstimate: PropTypes.bool.isRequired
 };
 

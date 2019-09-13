@@ -32,8 +32,14 @@ const App = ({
   const [estimateMin, setEstimateMin] = useState(0);
   const [estimateMax, setEstimateMax] = useState(0);
 
-  const budgetMin = budgetRangeMap.get(value).min;
-  const budgetMax = budgetRangeMap.get(value).max;
+  //   const budgetMin = budgetRangeMap.get(value).min;
+  //   const budgetMax = budgetRangeMap.get(value).max;
+  const {
+    min: budgetMin,
+    max: budgetMax,
+    label: budgetLabel,
+    html: budgetHtml
+  } = budgetRangeMap.get(value);
   const isLess = (estimateMin > budgetMax);
 
   console.log(`
@@ -73,15 +79,13 @@ const App = ({
       <Main>
         <PriceArea>
           <PriceBox
-            min={estimateMin}
-            max={estimateMax}
+            html={`${estimateMin.toLocaleString()}<small>円</small> 〜 ${estimateMax.toLocaleString()}<small>円</small>`}
             title="成約率の高い推定単価"
             isEstimate
           />
           <PriceBox
-            min={budgetMin}
-            max={budgetMax}
             title={isClient ? '設定予算' : '依頼予算'}
+            html={budgetHtml}
             isEstimate={false}
           />
         </PriceArea>
@@ -95,7 +99,7 @@ const App = ({
           isLess={isLess}
         />
         { isLess && (
-        <Message />
+        <Message label={budgetLabel} />
         )}
       </Main>
       <Note />
