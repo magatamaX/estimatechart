@@ -1932,6 +1932,13 @@ $(function(){
         milestone_amount_tax_total('', tax_rate, is_withholding, is_amount);
         get_fee_rate('', is_amount);
         (is_withholding) ? get_withholding_rate('', tax_rate, is_withholding) : 0;
+
+        /**
+         * 追加しています！
+         * FIXME:: 本当は直接渡したいのだが。。。
+        */
+        var result = document.querySelector('.amount_exclude_tax').textContent.split(',').join('');
+        $('input.js-estimate-chart-input').val(result).change();
     }
 
     function hidden_detail(id_hidden_detail ,class_hidden_detail){
@@ -2910,7 +2917,7 @@ $(function(){
                         </span>
                     </td>
                                                                     <td class="p-milestone-form__col p-milestone-form__col--fee is-reward">
-                            <input name="data[Milestone][10][reward_exclude_tax]" class="milestone10 ime_disabled wid12 js-estimate-chart-input" size="30" type="text" id="Milestone10RewardExcludeTax"/>円
+                            <input name="data[Milestone][10][reward_exclude_tax]" class="milestone10 ime_disabled wid12" size="30" type="text" id="Milestone10RewardExcludeTax"/>円
                            <!-- サーバーサイドは amountという名前でランサー手取り(税抜)で受け取る実装をしているため -->
                             <input name="data[Milestone][10][amount]" style="display: none" class="milestone10 ime_disabled wid12" type="text" id="Milestone10Amount" required="required"/>                        </td>
                                                         </tr>
@@ -3098,6 +3105,7 @@ $(function(){
                                                 </table>
 
                 <!-- target dom -->
+                <input type="hidden" class="js-estimate-chart-input" />
                 <div
                     class="js-estimate-chart"
                     data-type="lancer"

@@ -13,7 +13,7 @@ import Note from './components/Note';
 
 
 const selectDom = document.querySelector('.js-estimate-chart-select');
-const inputDom = document.querySelector('.js-estimate-chart-input');
+const inputDom = document.querySelector('input.js-estimate-chart-input');
 
 // ダミー推定金額
 const dummyEstimateMin = 45000;
@@ -28,18 +28,21 @@ const App = ({
     isPrivate: ${isPrivate}
     仕事ID: ${workId}`);
 
-  const [value, setValue] = useState(1);
+  const [selectValue, setSelectValue] = useState(1);
+  const [inputValue, setInputValue] = useState(0);
   const [estimateMin, setEstimateMin] = useState(0);
   const [estimateMax, setEstimateMax] = useState(0);
 
-  //   const budgetMin = budgetRangeMap.get(value).min;
-  //   const budgetMax = budgetRangeMap.get(value).max;
+  console.log(`selectValue: ${selectValue}, inputValue: ${inputValue}`);
+
+  //   const budgetMin = budgetRangeMap.get(selectValue).min;
+  //   const budgetMax = budgetRangeMap.get(selectValue).max;
   const {
     min: budgetMin,
     max: budgetMax,
     label: budgetLabel,
     html: budgetHtml
-  } = budgetRangeMap.get(value);
+  } = budgetRangeMap.get(selectValue);
   const isLess = (estimateMin > budgetMax);
 
   console.log(`
@@ -54,24 +57,31 @@ const App = ({
     if (selectDom) {
       selectDom.addEventListener('change', (e) => {
         console.log('(select) Innner Component => change', e.target.value);
-        setValue(Number(e.target.value));
+        setSelectValue(Number(e.target.value));
       }, false);
     }
 
     if (inputDom) {
-      inputDom.addEventListener('keyup', (e) => {
-        console.log('(input) Innner Component => change', e.target.value);
+      setSelectValue(4);
 
-        setValue(getChartRange(Number(e.target.value)));
-      }, false);
+      // inputタグはオリジナルのものであり、change()で強制発火しているためonchangeを使用
+      inputDom.onchange = (e) => {
+        console.log('rapgjerihgaj!!!!!', e.target.value);
+
+        console.log('js-estimate-chart-inputが変わりました！');
+        console.log('(input) Innner Component => change', e.target.value);
+        console.log(`スパンの値はどうなっているか？${document.querySelector('.amount_exclude_tax').innerHTML}`);
+
+        setInputValue(Number(e.target.value));
+      };
     }
   }, []);
 
   useEffect(() => {
-    console.log(`valueが変わりました。apiを呼びます。${value}`);
+    console.log(`selectValueが変わりました。apiを呼びます。${selectValue}`);
     setEstimateMin(dummyEstimateMin);
     setEstimateMax(dummyEstimateMax);
-  }, [value]);
+  }, [selectValue]);
 
   return (
     <Body>
@@ -91,6 +101,7 @@ const App = ({
         </PriceArea>
         <GraphArea
           isClient={isClient}
+          inputValue={inputValue}
           data={createPlotData(isClient)}
           budgetMin={budgetMin}
           budgetMax={budgetMax}
